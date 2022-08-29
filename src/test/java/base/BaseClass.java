@@ -1,11 +1,14 @@
 package base;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -23,7 +26,7 @@ public class BaseClass {
     @BeforeClass
     public void configAppium() throws MalformedURLException {
 
-       service = new AppiumServiceBuilder().withAppiumJS(new File("C:\\Users\\HP\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
+        service = new AppiumServiceBuilder().withAppiumJS(new File("C:\\Users\\HP\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
                 .withIPAddress("127.0.0.1").usingPort(4723).build();
 
         service.start();
@@ -39,6 +42,13 @@ public class BaseClass {
         URL uri = new URL("http://127.0.0.1:4723/wd/hub/");
         driver = new AppiumDriver<MobileElement>(uri, caps);
     }
+
+    public void longPressAction(MobileElement element) {
+        ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture",
+                ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
+                        "duration", 2000));
+    }
+
     @AfterClass
     public void tearDown() {
         driver.quit();
