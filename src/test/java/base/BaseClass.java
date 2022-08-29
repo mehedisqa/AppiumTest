@@ -2,6 +2,7 @@ package base;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -47,6 +48,11 @@ public class BaseClass {
         ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture",
                 ImmutableMap.of("elementId", ((RemoteWebElement) element).getId(),
                         "duration", 2000));
+    }
+
+    public  void scrollDown(String element){
+        driver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"element\"));"));
     }
 
     @AfterClass
