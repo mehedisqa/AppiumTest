@@ -14,8 +14,8 @@ public class MiscellaneousActions extends BaseClass {
         Mac: adb shell dumpsys window | grep -E 'mCurrentFocus'
         Windows: adb shell dumpsys window | find "mCurrentFocus"*/
 
-        activity = new Activity("", "");
-        ((AndroidDriver)driver).startActivity(activity);
+        activity = new Activity("io.appium.android.apis", "io.appium.android.apis.view.Gallery1");
+        //driver.startActivity(activity);
 
 
     }
